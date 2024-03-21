@@ -1,0 +1,33 @@
+FROM python:3.10
+
+RUN apt-get update
+
+ENV PYTHONUNBUFFERED=1
+
+RUN apt-get install build-essential python3-dev libmariadb-dev -y
+
+WORKDIR /hackaton-mvp
+COPY . /hackaton-mvp
+
+RUN pip install -r /hackaton-mvp/requirements.txt
+
+# Collect static files
+# RUN python manage.py collectstatic --noinput
+
+ARG POSTGRES_DB
+ENV POSTGRES_DB=$POSTGRES_DB
+ARG POSTGRES_PASSWORD
+ENV POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+ARG POSTGRES_USER
+ENV POSTGRES_USER=$POSTGRES_USER
+ARG POSTGRES_URL
+ENV POSTGRES_URL=$POSTGRES_URL
+ARG DJANGO_SETTINGS_MODULE
+ENV DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+ARG AWS_KEY_ID
+ENV AWS_KEY_ID=$AWS_KEY_ID
+ARG AWS_KEY_SECRET
+ENV AWS_KEY_SECRET=$AWS_KEY_SECRET
+
+EXPOSE 8000
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
