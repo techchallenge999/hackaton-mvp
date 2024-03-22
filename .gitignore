@@ -28,5 +28,6 @@ override.tf.json
 .terraformrc
 terraform.rc
 *.tfvars
-
+.coverage
 /venv
+.env

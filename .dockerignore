@@ -3,6 +3,7 @@ __pycache__
 /venv
 
 .env.template
+.env
 
 .git
 .gitignore

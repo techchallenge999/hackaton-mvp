@@ -16,7 +16,7 @@ spec:
         - name: api
           image: 447798043017.dkr.ecr.us-east-1.amazonaws.com/hackaton-mvp:latest
           imagePullPolicy: Always
-          command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+          command: ['sh', '-c', "bash ./init_app.sh"]
           ports:
             - containerPort: 8000
           env:
