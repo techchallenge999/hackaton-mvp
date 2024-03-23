@@ -40,10 +40,10 @@ SESSION_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SECURE = True
 
 # CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
-CSRF_USE_SESSIONS = False
+# CSRF_USE_SESSIONS = False
 # CSRF_COOKIE_AGE = 36000
-CSRF_COOKIE_SAMESITE = "None"
-CSRF_COOKIE_SECURE = False
+# CSRF_COOKIE_SAMESITE = "None"
+# CSRF_COOKIE_SECURE = False
 
 # Application definition
 
@@ -62,6 +62,8 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    "app.adapters.drf.shared.middlewares.DisableCSRFMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
