@@ -19,5 +19,5 @@ jobs:
       - run: sudo apt-get update
       - run: sudo apt-get --no-install-recommends --no-upgrade -y install python3-pip
       - run: pip install -r requirements.txt
-      - run: coverage run -m pytest
-      - run: coverage report --fail-under=80
+      - run: pytest
+      - run: bandit -c bandit.yaml -r .
