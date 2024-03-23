@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "k8s-default-myfoodin-ec4aa3a0de-748613526.us-east-1.elb.amazonaws.com",
@@ -47,11 +47,6 @@ SESSION_COOKIE_AGE = 36000
 SESSION_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SECURE = True
 
-# CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
-# CSRF_USE_SESSIONS = False
-# CSRF_COOKIE_AGE = 36000
-# CSRF_COOKIE_SAMESITE = "None"
-# CSRF_COOKIE_SECURE = False
 
 # Application definition
 
