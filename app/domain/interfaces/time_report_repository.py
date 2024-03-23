@@ -5,7 +5,7 @@ from app.domain.interfaces.dtos import TimeReportDto
 
 class TimeReportRepositoryInterface(RepositoryInterface):
     @abstractmethod
-    def create(self, type: str) -> None:
+    def create(self, type: str, user) -> None:
         pass
 
     @abstractmethod
@@ -19,7 +19,7 @@ class TimeReportRepositoryInterface(RepositoryInterface):
         pass
 
     @abstractmethod
-    def update(self,update_time_report_dto: TimeReportDto) -> None:
+    def update(self,update_time_report_dto: TimeReportDto, user) -> None:
         pass
 
     @abstractmethod

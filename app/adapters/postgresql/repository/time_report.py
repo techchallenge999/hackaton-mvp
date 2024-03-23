@@ -1,4 +1,4 @@
-from dataclasses import asdict
+from django.contrib.auth.models import User
 
 from app.adapters.drf.time_report.models import TimeReport
 from app.domain.interfaces.dtos import TimeReportDto, TimeReportType
@@ -7,8 +7,12 @@ from app.domain.interfaces.time_report_repository import TimeReportRepositoryInt
 
 class TimeReportRepository(TimeReportRepositoryInterface):
 
-    def create(self, type: str) -> None:
-        TimeReport.objects.create(type=TimeReportType.get_choice_by_value(type))
+    def create(self, type: str, user: User) -> None:
+        TimeReport.objects.create(
+            type=TimeReportType.get_choice_by_value(type),
+            created_by=user,
+            updated_by=user,
+        )
 
 
     def find(self, id: str) -> TimeReportDto | None:
@@ -38,7 +42,7 @@ class TimeReportRepository(TimeReportRepositoryInterface):
         ]
 
 
-    def update(self, update_time_report_dto: TimeReportDto) -> None:
+    def update(self, update_time_report_dto: TimeReportDto, user: User) -> None:
         pk = update_time_report_dto.id
         record = TimeReport.objects.filter(pk=pk).first()
         if record is None:
@@ -46,6 +50,7 @@ class TimeReportRepository(TimeReportRepositoryInterface):
         record.time = update_time_report_dto.time
         record.type = update_time_report_dto.type
         record.status = update_time_report_dto.status
+        record.updated_by = user
         record.save()
 
     def delete(self, id: str) -> None:

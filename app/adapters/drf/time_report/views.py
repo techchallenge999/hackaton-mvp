@@ -43,4 +43,4 @@ class GetDailyReport(APIView):
 class CreateTimeReport(APIView):
     def post(self, request):
         use_case = TimeReportUseCase(TimeReportRepository())
-        use_case.create()
+        use_case.create(request.user)
