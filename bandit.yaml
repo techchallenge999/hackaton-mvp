@@ -1,2 +1,2 @@
-exclude_dirs: ['./iac', './venv', './static', './k8s']
+exclude_dirs: ['./iac', './venv', './static', './k8s', './app/tests']
 skips: ['B101', 'B110',]
