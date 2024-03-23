@@ -108,8 +108,6 @@ class Verify2FACodeView(APIView):
         stored_2fa_data = self.get_stored_2fa_data(request=request)
         if not stored_2fa_data:
             logger.error("2FA code not found")
-            print("-"*30)
-            print(request.COOKIES.get("2fa-token"))
             return Response(
                 data={"message": "Invalid code"}, status=status.HTTP_404_NOT_FOUND
             )
