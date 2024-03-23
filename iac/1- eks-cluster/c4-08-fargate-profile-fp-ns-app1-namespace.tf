@@ -1,4 +1,4 @@
-# Datasource: 
+# Datasource:
 data "aws_eks_cluster_auth" "cluster" {
   name = aws_eks_cluster.eks_cluster.id
 }
@@ -25,7 +25,7 @@ resource "aws_eks_fargate_profile" "fargate_profile_apps" {
   subnet_ids = module.vpc.private_subnets
   selector {
     #namespace = "fp-ns-app1"
-    namespace = kubernetes_namespace_v1.fp_ns_app1.metadata[0].name 
+    namespace = kubernetes_namespace_v1.fp_ns_app1.metadata[0].name
   }
 }
 
@@ -33,12 +33,12 @@ resource "aws_eks_fargate_profile" "fargate_profile_apps" {
 # Outputs: Fargate Profile for fp-ns-app1 Namespace
 output "fp_ns_app1_fargate_profile_arn" {
   description = "Fargate Profile ARN"
-  value = aws_eks_fargate_profile.fargate_profile_apps.arn 
+  value = aws_eks_fargate_profile.fargate_profile_apps.arn
 }
 
 output "fp_ns_app1_fargate_profile_id" {
   description = "Fargate Profile ID"
-  value = aws_eks_fargate_profile.fargate_profile_apps.id 
+  value = aws_eks_fargate_profile.fargate_profile_apps.id
 }
 
 output "fp_ns_app1_fargate_profile_status" {

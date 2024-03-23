@@ -19,7 +19,7 @@ resource "aws_iam_openid_connect_provider" "oidc_provider" {
 # Output: AWS IAM Open ID Connect Provider ARN
 output "aws_iam_openid_connect_provider_arn" {
   description = "AWS IAM Open ID Connect Provider ARN"
-  value = aws_iam_openid_connect_provider.oidc_provider.arn 
+  value = aws_iam_openid_connect_provider.oidc_provider.arn
 }
 
 # Extract OIDC Provider from OIDC Provider ARN

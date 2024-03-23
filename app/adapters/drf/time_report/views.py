@@ -8,7 +8,7 @@ from app.domain.utils import (
     get_current_month_first_days,
     get_last_month_first_days,
     get_tomorrow_first_time,
-    get_today_first_time
+    get_today_first_time,
 )
 
 

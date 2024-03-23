@@ -1,4 +1,3 @@
-
 import pytest
 from django.contrib.auth.models import User
 
@@ -6,13 +5,10 @@ from app.adapters.drf.time_report.models import TimeReport
 from app.domain.entities.time_report import TimeReportStatus, TimeReportType
 
 
-
 @pytest.fixture
 def user():
     return User.objects.create_user(
-        username='john',
-        email='john.doe@exemple.com',
-        password='password'
+        username="john", email="john.doe@exemple.com", password="password"
     )
 
 
@@ -24,6 +20,7 @@ def time_report_in(user):
         created_by=user,
         updated_by=user,
     )
+
 
 @pytest.fixture
 def time_report_out(user):

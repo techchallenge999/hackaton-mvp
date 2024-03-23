@@ -1,6 +1,10 @@
 from django.urls import path
 
-from app.adapters.drf.authentication.views import Resend2FACodeView, ValidateUsernamePasswordView, Verify2FACodeView
+from app.adapters.drf.authentication.views import (
+    Resend2FACodeView,
+    ValidateUsernamePasswordView,
+    Verify2FACodeView,
+)
 
 
 namespace = "time-report"

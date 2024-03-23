@@ -6,14 +6,12 @@ from app.domain.interfaces.time_report_repository import TimeReportRepositoryInt
 
 
 class TimeReportRepository(TimeReportRepositoryInterface):
-
     def create(self, type: str, user: User) -> None:
         TimeReport.objects.create(
             type=TimeReportType.get_choice_by_value(type),
             created_by=user,
             updated_by=user,
         )
-
 
     def find(self, id: str) -> TimeReportDto | None:
         record = TimeReport.objects.filter(pk=id).first()
@@ -25,7 +23,6 @@ class TimeReportRepository(TimeReportRepositoryInterface):
                 type=record.status,
                 status=record.status,
             )
-
 
     def list(
         self, filters: dict = {}, exclusive_filters: dict = {}
@@ -43,9 +40,10 @@ class TimeReportRepository(TimeReportRepositoryInterface):
                 user=record.created_by.username,
                 type=record.status,
                 status=record.status,
-            ) for record in records if record
+            )
+            for record in records
+            if record
         ]
-
 
     def update(self, update_time_report_dto: TimeReportDto, user: User) -> None:
         pk = update_time_report_dto.id

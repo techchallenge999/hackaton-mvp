@@ -7,18 +7,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('time_report', '0001_initial'),
+        ("time_report", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='timereport',
-            name='status',
-            field=models.CharField(choices=[('PENDING', 'pending'), ('APPROVED', 'approved'), ('REJECTED', 'rejected')], default=app.domain.entities.time_report.TimeReportStatus['PENDING'], max_length=25),
+            model_name="timereport",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("PENDING", "pending"),
+                    ("APPROVED", "approved"),
+                    ("REJECTED", "rejected"),
+                ],
+                default=app.domain.entities.time_report.TimeReportStatus["PENDING"],
+                max_length=25,
+            ),
         ),
         migrations.AlterField(
-            model_name='timereport',
-            name='type',
-            field=models.CharField(choices=[('IN', 'in'), ('OUT', 'out')], max_length=20),
+            model_name="timereport",
+            name="type",
+            field=models.CharField(
+                choices=[("IN", "in"), ("OUT", "out")], max_length=20
+            ),
         ),
     ]

@@ -1,5 +1,3 @@
-
-
 from dataclasses import dataclass
 from datetime import datetime
 
@@ -18,4 +16,4 @@ class TimeReportDto:
 @dataclass
 class UserDto:
     id: int
-    username:str
+    username: str
