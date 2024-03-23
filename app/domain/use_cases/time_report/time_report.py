@@ -1,3 +1,4 @@
+from typing import List
 from app.domain.entities.time_report import TimeReportStatus, TimeReportType
 from app.domain.interfaces.dtos import TimeReportDto
 from app.domain.interfaces.time_report_repository import TimeReportRepositoryInterface
@@ -39,7 +40,7 @@ class TimeReportUseCase:
             update_time_report_dto=update_data, user=user
         )
 
-    def calculate_daily_report(self, daily_report_list: list[TimeReportDto]):
+    def calculate_daily_report(self, daily_report_list: List[TimeReportDto]):
         worked_time = 0.0
         for i in range(1,len(daily_report_list), 2):
             worked_time += (
@@ -50,7 +51,7 @@ class TimeReportUseCase:
             "worked_time": f"{worked_time} seconds",
         }
 
-    def calculate_monthly_report(self, monthly_report_list: list[TimeReportDto]):
+    def calculate_monthly_report(self, monthly_report_list: List[TimeReportDto]):
         month_dict = {}
         for i in range(1,len(monthly_report_list), 2):
             day = monthly_report_list[i-1].time.day
