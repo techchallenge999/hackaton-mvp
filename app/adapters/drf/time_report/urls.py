@@ -15,7 +15,7 @@ urlpatterns = [
         GetLastMonthReport.as_view(),
         name="Get Last Month Time Report",
     ),
-    path("get-daily-month/", GetDailyReport.as_view(), name="Get Today's Time Report"),
+    path("get-daily-report/", GetDailyReport.as_view(), name="Get Today's Time Report"),
     path(
         "create-time-report/",
         CreateTimeReport.as_view(),

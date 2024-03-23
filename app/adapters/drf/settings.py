@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "k8s-default-myfoodin-ec4aa3a0de-748613526.us-east-1.elb.amazonaws.com",
@@ -36,7 +36,11 @@ ALLOWED_HOSTS = [
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = os.environ.get(
     "CORS_ALLOWED_ORIGINS",
-    "http://k8s-default-myfoodin-ec4aa3a0de-748613526.us-east-1.elb.amazonaws.com",
+    (
+        "https://k8s-default-myfoodin-ec4aa3a0de-748613526.us-east-1.elb.amazonaws.com,"
+        "http://k8s-default-myfoodin-ec4aa3a0de-748613526.us-east-1.elb.amazonaws.com,"
+        "http://localhost"
+    ),
 ).split(",")
 
 SESSION_COOKIE_AGE = 36000
@@ -60,6 +64,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "app.adapters.drf.authentication",
     "app.adapters.drf.time_report",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
