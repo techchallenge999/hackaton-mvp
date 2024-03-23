@@ -29,15 +29,21 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['k8s-default-myfoodin-ec4aa3a0de-748613526.us-east-1.elb.amazonaws.com']
+ALLOWED_HOSTS = ['k8s-default-myfoodin-ec4aa3a0de-748613526.us-east-1.elb.amazonaws.com', 'localhost']
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = os.environ.get(
     "CORS_ALLOWED_ORIGINS", "http://k8s-default-myfoodin-ec4aa3a0de-748613526.us-east-1.elb.amazonaws.com"
 ).split(",")
 
 SESSION_COOKIE_AGE = 36000
-SESSION_COOKIE_SAMESITE = "Strict"
+SESSION_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SECURE = True
+
+# CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
+CSRF_USE_SESSIONS = False
+# CSRF_COOKIE_AGE = 36000
+CSRF_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SECURE = False
 
 # Application definition
 
@@ -56,7 +62,6 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
