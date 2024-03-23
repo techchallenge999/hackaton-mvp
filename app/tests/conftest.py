@@ -1,10 +1,15 @@
 
 import pytest
+import django
 from django.contrib.auth.models import User
 
 from app.adapters.drf.time_report.models import TimeReport
 from app.domain.entities.time_report import TimeReportStatus, TimeReportType
+import dotenv
 
+def pytest_sessionstart(session):
+    dotenv.load_dotenv()
+    django.setup()
 
 
 @pytest.fixture

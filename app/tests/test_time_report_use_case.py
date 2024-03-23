@@ -1,6 +1,10 @@
 import pytest
 from app.adapters.postgresql.repository.time_report import TimeReportRepository
 from app.domain.use_cases.time_report.time_report import TimeReportUseCase
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 @pytest.mark.django_db
 class TestTimeReportUseCase:
