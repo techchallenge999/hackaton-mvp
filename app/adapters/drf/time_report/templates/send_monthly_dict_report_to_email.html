@@ -20,8 +20,6 @@
         }
 
         th {
-            writing-mode: vertical-rl;
-            transform: rotate(270deg);
             color: black;
             font-size: 11pt;
             font-family: Calibri;
@@ -45,7 +43,7 @@
         Hello {{ username }}, here is you last month time report:
     </h1>
 
-    <table border="1" class="dataframe mystyle">
+    <table border="1" class="dataframe">
         <thead>
           <tr style="text-align: center;">
             <th>DAY</th>
@@ -54,11 +52,11 @@
           </tr>
         </thead>
         <tbody>
-          {% for day in monthly_dict_report.keys() %}
+          {% for day,total, entries in zipped_data_list %}
             <tr>
                 <td>{{ day }}</td>
-                <td>{{ monthly_dict_report[day]["worked_time"] }}</td>
-                <td>{{ monthly_dict_report[day]["entries"] }}</td>
+                <td>{{ total }}</td>
+                <td>{{ entries }}</td>
             </tr>
         {% endfor %}
         </tbody>

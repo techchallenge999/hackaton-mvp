@@ -1,26 +1,30 @@
 from django.contrib.auth.models import User
 
 from app.adapters.drf.time_report.models import TimeReport
+from app.domain.entities.time_report import TimeReportStatus
 from app.domain.interfaces.dtos import TimeReportDto, TimeReportType
 from app.domain.interfaces.time_report_repository import TimeReportRepositoryInterface
 
 
 class TimeReportRepository(TimeReportRepositoryInterface):
-    def create(self, type: str, user: User) -> None:
+    def create(self, type: str, user: User, status: TimeReportStatus) -> None:
         TimeReport.objects.create(
             type=TimeReportType.get_choice_by_value(type),
             created_by=user,
             updated_by=user,
+            status=status,
         )
 
     def get_last_time_report(self, user) -> TimeReportDto | None:
-        last_time_report = TimeReport.objects.filter(created_by=user).order_by('-time').first()
+        last_time_report = (
+            TimeReport.objects.filter(created_by=user).order_by("-time").first()
+        )
         if last_time_report is not None:
             return TimeReportDto(
                 id=last_time_report.pk,
                 time=last_time_report.created_at,
                 user=last_time_report.created_by.username,
-                type=last_time_report.status,
+                type=last_time_report.type,
                 status=last_time_report.status,
             )
         return None
@@ -32,7 +36,7 @@ class TimeReportRepository(TimeReportRepositoryInterface):
                 id=record.pk,
                 time=record.created_at,
                 user=record.created_by.username,
-                type=record.status,
+                type=record.type,
                 status=record.status,
             )
 
@@ -50,7 +54,7 @@ class TimeReportRepository(TimeReportRepositoryInterface):
                 id=record.pk,
                 time=record.created_at,
                 user=record.created_by.username,
-                type=record.status,
+                type=record.type,
                 status=record.status,
             )
             for record in records

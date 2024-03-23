@@ -16,13 +16,22 @@ from app.domain.utils import (
 
 
 class GetLastMonthReport(APIView):
-    def send_monthly_dict_report_to_email(self, username: str, email: str, monthly_dict_report: dict):
+    def send_monthly_dict_report_to_email(
+        self, username: str, email: str, monthly_dict_report: dict
+    ):
         mail_subject = "Last Month Time report"
         message = render_to_string(
             "send_monthly_dict_report_to_email.html",
             {
                 "username": username,
-                "monthly_dict_report": monthly_dict_report,
+                "zipped_data_list": [
+                    (
+                        day,
+                        monthly_dict_report[day]["worked_time"],
+                        monthly_dict_report[day]["entries"],
+                    )
+                    for day in monthly_dict_report.keys()
+                ],
             },
         )
         email_message = EmailMessage(
@@ -42,13 +51,19 @@ class GetLastMonthReport(APIView):
             },
             exclusive_filters={},
         )
-        self.send_monthly_dict_report_to_email(
-            username=user.username,
-            email=user.email,
-            monthly_dict_report= use_case.calculate_monthly_report(last_month_list)
-        )
+        monthly_dict_report = use_case.calculate_monthly_report(last_month_list)
+        if monthly_dict_report:
+            self.send_monthly_dict_report_to_email(
+                username=user.username,
+                email=user.email,
+                monthly_dict_report=monthly_dict_report,
+            )
+            return Response(
+                {"message": "Email sent containing the report"},
+                status=status.HTTP_200_OK,
+            )
         return Response(
-            {"message": "Email sent conmtaining the report"},
+            {"message": "No data found"},
             status=status.HTTP_200_OK,
         )
 
@@ -76,3 +91,7 @@ class CreateTimeReport(APIView):
         time_report_type = request.GET.get("type")
         use_case = TimeReportUseCase(TimeReportRepository())
         use_case.create(time_report_type, request.user)
+        return Response(
+            {"message": "time report created successfuly!"},
+            status=status.HTTP_200_OK,
+        )

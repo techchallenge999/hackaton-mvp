@@ -1,11 +1,12 @@
 from abc import abstractmethod
+from app.domain.entities.time_report import TimeReportStatus
 from app.domain.interfaces.base_repository import RepositoryInterface
 from app.domain.interfaces.dtos import TimeReportDto
 
 
 class TimeReportRepositoryInterface(RepositoryInterface):
     @abstractmethod
-    def create(self, type: str, user) -> None:
+    def create(self, type: str, user, status: TimeReportStatus) -> None:
         pass
 
     @abstractmethod
