@@ -143,7 +143,9 @@ class Verify2FACodeView(APIView):
     def code_has_expired(self, stored_2fa_data):
         current_datetime = timezone.now()
         time_difference = (current_datetime - stored_2fa_data.issued_at).total_seconds()
-        return time_difference > ast.literal_eval(str(os.environ.get("2FA_TTL_SECONDS", 600)))
+        return time_difference > ast.literal_eval(
+            str(os.environ.get("2FA_TTL_SECONDS", 600))
+        )
 
 
 class Resend2FACodeView(APIView):

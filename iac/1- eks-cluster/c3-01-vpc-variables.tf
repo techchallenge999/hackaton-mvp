@@ -3,14 +3,14 @@
 # VPC Name
 variable "vpc_name" {
   description = "VPC Name"
-  type = string 
+  type = string
   default = "myvpc"
 }
 
 # VPC CIDR Block
 variable "vpc_cidr_block" {
   description = "VPC CIDR Block"
-  type = string 
+  type = string
   default = "10.0.0.0/16"
 }
 
@@ -48,22 +48,22 @@ variable "vpc_database_subnets" {
 variable "vpc_create_database_subnet_group" {
   description = "VPC Create Database Subnet Group"
   type = bool
-  default = true 
+  default = true
 }
 
 # VPC Create Database Subnet Route Table (True or False)
 variable "vpc_create_database_subnet_route_table" {
   description = "VPC Create Database Subnet Route Table"
   type = bool
-  default = true   
+  default = true
 }
 
-  
-# VPC Enable NAT Gateway (True or False) 
+
+# VPC Enable NAT Gateway (True or False)
 variable "vpc_enable_nat_gateway" {
   description = "Enable NAT Gateways for Private Subnets Outbound Communication"
   type = bool
-  default = true  
+  default = true
 }
 
 # VPC Single NAT Gateway (True or False)
@@ -72,8 +72,3 @@ variable "vpc_single_nat_gateway" {
   type = bool
   default = true
 }
-
-
-
-
-

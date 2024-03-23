@@ -12,7 +12,11 @@ class TimestampMixin(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
     created_by = models.ForeignKey(
-        User, on_delete=models.SET_NULL, related_name="%(class)s_created", null=True, editable=False
+        User,
+        on_delete=models.SET_NULL,
+        related_name="%(class)s_created",
+        null=True,
+        editable=False,
     )
     updated_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, related_name="%(class)s_updated", null=True
@@ -26,10 +30,7 @@ class TimestampMixin(models.Model):
 class TimeReport(TimestampMixin):
     time = models.DateTimeField(auto_now_add=True, editable=True)
     type = models.CharField(
-        max_length=20,
-        choices=TimeReportType.choices,
-        null=False,
-        blank=False
+        max_length=20, choices=TimeReportType.choices, null=False, blank=False
     )
     status = models.CharField(
         max_length=25,

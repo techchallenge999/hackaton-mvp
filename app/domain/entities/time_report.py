@@ -1,5 +1,3 @@
-
-
 from enum import Enum
 
 
@@ -9,7 +7,7 @@ class TimeReportStatus(Enum):
     REJECTED = "rejected"
 
     @classmethod
-    def get_choice_by_value(cls, value:str):
+    def get_choice_by_value(cls, value: str):
         for i in cls:
             if i.value == value:
                 return (i.name, i.value)
@@ -26,7 +24,7 @@ class TimeReportType(Enum):
     OUT = "out"
 
     @classmethod
-    def get_choice_by_value(cls, value:str):
+    def get_choice_by_value(cls, value: str):
         for i in cls:
             if i.value == value:
                 return (i.name, i.value)

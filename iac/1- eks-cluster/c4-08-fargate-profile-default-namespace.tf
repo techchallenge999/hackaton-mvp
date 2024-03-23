@@ -13,12 +13,12 @@ resource "aws_eks_fargate_profile" "fargate_profile_default" {
 # Outputs: Fargate Profile for default Namespace
 output "default_fargate_profile_arn" {
   description = "Fargate Profile ARN"
-  value = aws_eks_fargate_profile.fargate_profile_default.arn 
+  value = aws_eks_fargate_profile.fargate_profile_default.arn
 }
 
 output "default_fargate_profile_id" {
   description = "Fargate Profile ID"
-  value = aws_eks_fargate_profile.fargate_profile_default.id 
+  value = aws_eks_fargate_profile.fargate_profile_default.id
 }
 
 output "default_fargate_profile_status" {

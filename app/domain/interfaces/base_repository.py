@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class RepositoryInterface(ABC):
     @abstractmethod
     def create(self, entity_dto: ABC) -> None:

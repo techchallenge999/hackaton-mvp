@@ -19,7 +19,7 @@ class TimeReportRepositoryInterface(RepositoryInterface):
         pass
 
     @abstractmethod
-    def update(self,update_time_report_dto: TimeReportDto, user) -> None:
+    def update(self, update_time_report_dto: TimeReportDto, user) -> None:
         pass
 
     @abstractmethod

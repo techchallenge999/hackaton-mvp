@@ -6,7 +6,6 @@ from app.domain.interfaces.time_report_repository import TimeReportRepositoryInt
 
 
 class TimeReportRepository(TimeReportRepositoryInterface):
-
     def create(self, type: str, user: User) -> None:
         TimeReport.objects.create(
             type=TimeReportType.get_choice_by_value(type),
@@ -37,7 +36,6 @@ class TimeReportRepository(TimeReportRepositoryInterface):
                 status=record.status,
             )
 
-
     def list(
         self, filters: dict = {}, exclusive_filters: dict = {}
     ) -> list[TimeReportDto]:
@@ -54,9 +52,10 @@ class TimeReportRepository(TimeReportRepositoryInterface):
                 user=record.created_by.username,
                 type=record.status,
                 status=record.status,
-            ) for record in records if record
+            )
+            for record in records
+            if record
         ]
-
 
     def update(self, update_time_report_dto: TimeReportDto, user: User) -> None:
         pk = update_time_report_dto.id
