@@ -13,3 +13,9 @@ class TimeReportDto:
     user: str
     type: TimeReportType
     status: TimeReportStatus
+
+
+@dataclass
+class UserDto:
+    id: int
+    username:str

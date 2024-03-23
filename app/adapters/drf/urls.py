@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from app.adapters.drf.auth.views import Resend2FACodeView, ValidateUsernamePasswordView, Verify2FACodeView
 
@@ -24,4 +24,5 @@ urlpatterns = [
     path("verify-2fa-code/", Verify2FACodeView.as_view(), name="verify_2fa_code"),
     path("resend-2fa-code/", Resend2FACodeView.as_view(), name="resend_2fa_code"),
     path('admin/', admin.site.urls),
+    path("api/time-report/", include(("time_report.urls", "time-report"), namespace="time-report")),
 ]
