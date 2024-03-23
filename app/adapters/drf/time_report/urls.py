@@ -2,6 +2,7 @@ from django.urls import path
 
 from app.adapters.drf.time_report.views import CreateTimeReport, GetDailyReport, GetLastMonthReport
 
+
 namespace = "time-report"
 
 urlpatterns = [

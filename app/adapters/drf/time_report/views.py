@@ -1,8 +1,8 @@
-from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
-from app.adapters.postgresql.repository.time_report import TimeReportRepository
+from rest_framework.views import APIView
 
+from app.adapters.postgresql.repository.time_report import TimeReportRepository
 from app.domain.use_cases.time_report.time_report import TimeReportUseCase
 from app.domain.utils import (
     get_current_month_first_days,
@@ -10,8 +10,6 @@ from app.domain.utils import (
     get_tomorrow_first_time,
     get_today_first_time
 )
-
-# Create your views here.
 
 
 class GetLastMonthReport(APIView):
@@ -41,8 +39,8 @@ class GetDailyReport(APIView):
             exclusive_filters={},
         )
 
+
 class CreateTimeReport(APIView):
     def post(self, request):
-        time_report_type = request.GET.get("type")
         use_case = TimeReportUseCase(TimeReportRepository())
-        use_case.create(time_report_type)
+        use_case.create()

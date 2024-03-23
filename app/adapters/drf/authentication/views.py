@@ -3,6 +3,7 @@ import re
 import os
 import ast
 from datetime import datetime, timedelta
+
 from django.conf import settings
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.tokens import default_token_generator
@@ -27,16 +28,17 @@ class ValidateUsernamePasswordView(APIView):
 
     def post(self, request):
         username = request.data.get("username")
-        valid_username_regex = r"^[a-zA-Z.]+$"
 
+        valid_username_regex = r"^[a-zA-Z.]+$"
         if not re.match(valid_username_regex, username):
-            logger.error("Invalid password characters")
+            logger.error("Invalid username characters")
             return Response(
                 data={
                     "message": "The user field must only contain letters and periods"
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
         user = authenticate(
             request,
             username=request.data.get("username"),
@@ -44,20 +46,20 @@ class ValidateUsernamePasswordView(APIView):
         )
 
         if user is None:
-            logger.error("Invalid password")
+            logger.error("Invalid credentials")
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         self.clear_stored_2fa_data(user=user)
-        logger.info("2fa data cleared")
+        logger.info("2FA data cleared")
+
         if not user.email:
-            logger.error("User must to have an email registered")
+            logger.error("User must have a registered email")
             return Response(
                 {"message": "user lacks email"}, status=status.HTTP_400_BAD_REQUEST
             )
 
         code = get_random_string(length=6, allowed_chars="1234567890")
         token = default_token_generator.make_token(user)
-
         TwoFactorAuthentication.objects.create(
             code=code,
             token=token,
@@ -73,6 +75,7 @@ class ValidateUsernamePasswordView(APIView):
             fail_silently=False,
         )
         logger.info("2FA token sent")
+
         response = HttpResponse(status=status.HTTP_204_NO_CONTENT)
         response.set_cookie(
             "2fa-token",
@@ -96,7 +99,7 @@ class Verify2FACodeView(APIView):
     def post(self, request):
         regex = r"^\d{6}$"
         if not re.match(regex, request.data.get("code")):
-            logger.error("2FA code invalid")
+            logger.error("invalid 2FA code")
             return Response(
                 data={"message": "2FA must be a 6 digit code"},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -115,6 +118,7 @@ class Verify2FACodeView(APIView):
             return Response(
                 data={"message": "Code has expired"}, status=status.HTTP_400_BAD_REQUEST
             )
+
         logger.info("2FA found!")
         login(request, stored_2fa_data.user)
         stored_2fa_data.delete()
@@ -127,7 +131,7 @@ class Verify2FACodeView(APIView):
             request.session.session_key,
             httponly=True,
         )
-        logger.info("Cookies has been set!")
+        logger.info("the session cookie has been set!")
         return response
 
     def get_stored_2fa_data(self, request):
@@ -141,9 +145,6 @@ class Verify2FACodeView(APIView):
         time_difference = (current_datetime - stored_2fa_data.issued_at).total_seconds()
         return time_difference > ast.literal_eval(str(os.environ.get("2FA_TTL_SECONDS", 600)))
 
-    def get_auth_token_response(self, request):
-        return super().post(request)
-
 
 class Resend2FACodeView(APIView):
     permission_classes = [AllowAny]
@@ -152,9 +153,11 @@ class Resend2FACodeView(APIView):
         stored_2fa_data = self.get_stored_2fa_data(request=request)
 
         if not stored_2fa_data:
-            logger.error("2FA token not Found!")
+            logger.error("2FA token not found!")
             return Response(status=status.HTTP_404_NOT_FOUND)
+
         logger.info("2FA token found")
+
         send_mail(
             "Your 2FA Code",
             f"Your 2FA code is: {stored_2fa_data.code}.",
@@ -163,6 +166,7 @@ class Resend2FACodeView(APIView):
             fail_silently=False,
         )
         logger.info("2FA token sent!")
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def get_stored_2fa_data(self, request):

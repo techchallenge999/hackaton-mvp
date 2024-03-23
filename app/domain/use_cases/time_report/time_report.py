@@ -1,4 +1,5 @@
 
+from app.domain.entities.time_report import TimeReportStatus
 from app.domain.interfaces.dtos import TimeReportDto
 from app.domain.interfaces.time_report_repository import TimeReportRepositoryInterface
 
@@ -10,8 +11,8 @@ class TimeReportUseCase:
     ):
         self.time_report_repository = time_report_repository
 
-    def create(self, type: str):
-        self.time_report_repository.create(type=type)
+    def create(self):
+        self.time_report_repository.create(type=TimeReportStatus.APPROVED.value)
 
     def list(self, filters: dict, exclusive_filters: dict):
         return self.time_report_repository.list(
