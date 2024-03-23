@@ -30,7 +30,12 @@ class TimeReportRepository(TimeReportRepositoryInterface):
     def list(
         self, filters: dict = {}, exclusive_filters: dict = {}
     ) -> list[TimeReportDto]:
-        records = TimeReport.objects.filter(**filters).exclude(**exclusive_filters).all()
+        queryset = TimeReport.objects
+        if filters:
+            queryset = queryset.filter(**filters)
+        if exclusive_filters:
+            queryset = queryset.exclude(**exclusive_filters)
+        records = queryset.all()
         return [
             TimeReportDto(
                 id=record.pk,
@@ -38,7 +43,7 @@ class TimeReportRepository(TimeReportRepositoryInterface):
                 user=record.created_by.username,
                 type=record.status,
                 status=record.status,
-            ) for record in records
+            ) for record in records if record
         ]
 
 
