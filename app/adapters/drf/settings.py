@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "k8s-default-myfoodin-ec4aa3a0de-748613526.us-east-1.elb.amazonaws.com",

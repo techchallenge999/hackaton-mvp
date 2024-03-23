@@ -55,3 +55,23 @@ spec:
                 secretKeyRef:
                   name: api-secrets
                   key: AWS_REGION
+            - name: EMAIL_HOST_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: api-secrets
+                  key: EMAIL_HOST_PASSWORD
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-secrets
+                  key: DJANGO_SECRET_KEY
+            - name: DJANGO_SETTINGS_MODULE
+              valueFrom:
+                secretKeyRef:
+                  name: api-secrets
+                  key: DJANGO_SETTINGS_MODULE
+            - name: DJANGO_LOG_LEVEL
+              valueFrom:
+                secretKeyRef:
+                  name: api-secrets
+                  key: DJANGO_LOG_LEVEL
