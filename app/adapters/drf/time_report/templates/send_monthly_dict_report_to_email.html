@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .mystyle {
+            font-size: 11pt;
+            font-family: Calibri;
+            border-collapse: collapse;
+            border: 1px solid rgb(54, 54, 54);
+        }
+
+        p {
+            font-family: Calibri;
+            font-size: 11pt;
+        }
+
+        h1 {
+            font-family: Calibri;
+            font-size: 13pt;
+        }
+
+        th {
+            writing-mode: vertical-rl;
+            transform: rotate(270deg);
+            color: black;
+            font-size: 11pt;
+            font-family: Calibri;
+            border-collapse: collapse;
+            border: 1px solid rgb(54, 54, 54);
+        }
+
+        td, th {
+            padding: 4px;
+            font-size: 11pt;
+            font-family: Calibri;
+            border-collapse: collapse;
+            border: 1px solid rgb(54, 54, 54);
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="font-size: 13pt;
+                font-family: Calibri;">
+        Hello {{ username }}, here is you last month time report:
+    </h1>
+
+    <table border="1" class="dataframe mystyle">
+        <thead>
+          <tr style="text-align: center;">
+            <th>DAY</th>
+            <th>WORKED HOURS</th>
+            <th>ENTRIES</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for day in monthly_dict_report.keys() %}
+            <tr>
+                <td>{{ day }}</td>
+                <td>{{ monthly_dict_report[day]["worked_time"] }}</td>
+                <td>{{ monthly_dict_report[day]["entries"] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+</body>
+</html>

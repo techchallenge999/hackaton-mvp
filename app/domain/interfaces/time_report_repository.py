@@ -25,3 +25,7 @@ class TimeReportRepositoryInterface(RepositoryInterface):
     @abstractmethod
     def delete(self, id: str) -> None:
         pass
+
+    @abstractmethod
+    def get_last_time_report(self, user) -> TimeReportDto | None:
+        pass

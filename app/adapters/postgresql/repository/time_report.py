@@ -14,6 +14,17 @@ class TimeReportRepository(TimeReportRepositoryInterface):
             updated_by=user,
         )
 
+    def get_last_time_report(self, user) -> TimeReportDto | None:
+        last_time_report = TimeReport.objects.filter(created_by=user).order_by('-time').first()
+        if last_time_report is not None:
+            return TimeReportDto(
+                id=last_time_report.pk,
+                time=last_time_report.created_at,
+                user=last_time_report.created_by.username,
+                type=last_time_report.status,
+                status=last_time_report.status,
+            )
+        return None
 
     def find(self, id: str) -> TimeReportDto | None:
         record = TimeReport.objects.filter(pk=id).first()
@@ -35,7 +46,7 @@ class TimeReportRepository(TimeReportRepositoryInterface):
             queryset = queryset.filter(**filters)
         if exclusive_filters:
             queryset = queryset.exclude(**exclusive_filters)
-        records = queryset.all()
+        records = queryset.order_by("-time").all()
         return [
             TimeReportDto(
                 id=record.pk,
