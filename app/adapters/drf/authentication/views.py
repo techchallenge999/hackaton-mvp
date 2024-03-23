@@ -15,7 +15,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from app.adapters.drf.auth.models import TwoFactorAuthentication
+from app.adapters.drf.authentication.models import TwoFactorAuthentication
 
 
 User = get_user_model()
@@ -169,4 +169,3 @@ class Resend2FACodeView(APIView):
         return TwoFactorAuthentication.objects.filter(
             token=request.COOKIES.get("2fa-token")
         ).first()
-

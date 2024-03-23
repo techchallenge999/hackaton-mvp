@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from app.domain.entity.time_report import TimeReportStatus, TimeReportType
+from app.domain.entities.time_report import TimeReportStatus, TimeReportType
 
 
 class TimestampMixin(models.Model):

@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'auth',
-    'time_report',
+    'app.adapters.drf.authentication',
+    'app.adapters.drf.time_report',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'drf.urls'
+ROOT_URLCONF = 'app.adapters.drf.urls'
 
 TEMPLATES = [
     {
@@ -73,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'drf.wsgi.application'
+WSGI_APPLICATION = 'app.adapters.drf.wsgi.application'
 
 
 # Database
@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'drf.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("POSTGRES_DB", "django_db"),
         "USER": os.environ.get("POSTGRES_USER", "root"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "root"),
