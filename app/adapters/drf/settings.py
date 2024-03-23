@@ -65,11 +65,13 @@ INSTALLED_APPS = [
     "app.adapters.drf.authentication",
     "app.adapters.drf.time_report",
     "drf_yasg",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "app.adapters.drf.shared.middlewares.DisableCSRFMiddleware",
