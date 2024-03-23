@@ -26,13 +26,13 @@ class TimestampMixin(models.Model):
 class TimeReport(TimestampMixin):
     time = models.DateTimeField(auto_now_add=True, editable=True)
     type = models.CharField(
-        max_length=3,
+        max_length=20,
         choices=TimeReportType.choices,
         null=False,
         blank=False
     )
     status = models.CharField(
-        max_length=10,
+        max_length=25,
         choices=TimeReportStatus.choices,
         default=TimeReportStatus.PENDING,
     )
