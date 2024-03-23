@@ -20,7 +20,7 @@ from app.adapters.drf.authentication.models import TwoFactorAuthentication
 
 
 User = get_user_model()
-logger = logging.getLogger("auth")
+logger = logging.getLogger()
 
 
 class ValidateUsernamePasswordView(APIView):
@@ -81,7 +81,7 @@ class ValidateUsernamePasswordView(APIView):
             "2fa-token",
             token,
             httponly=True,
-            secure=True,
+            secure=False,
             max_age=ast.literal_eval(str(os.environ.get("2FA_TTL_SECONDS", 600))),
             samesite="None",
         )
@@ -108,6 +108,8 @@ class Verify2FACodeView(APIView):
         stored_2fa_data = self.get_stored_2fa_data(request=request)
         if not stored_2fa_data:
             logger.error("2FA code not found")
+            print("-"*30)
+            print(request.COOKIES.get("2fa-token"))
             return Response(
                 data={"message": "Invalid code"}, status=status.HTTP_404_NOT_FOUND
             )
